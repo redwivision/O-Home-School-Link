@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Stores user profiles and roles.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "parent", "student", "driver"] },
+        "busNumber": { "type": "string", "description": "Optional: For drivers and students" },
+        "parentId": { "type": "string", "description": "Optional: For students" },
+        "driverId": { "type": "string", "description": "Optional: For students" },
+        "studentIds": { "type": "array", "items": { "type": "string" }, "description": "Optional: For parents" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Student attendance records.",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "status": { "type": "string", "enum": ["present", "absent", "late"] },
+        "date": { "type": "string", "format": "date-time" },
+        "recordedBy": { "type": "string" }
+      },
+      "required": ["studentId", "status", "date"]
+    },
+    "Trip": {
+      "title": "Trip",
+      "description": "Bus trip status and tracking.",
+      "type": "object",
+      "properties": {
+        "driverId": { "type": "string" },
+        "busNumber": { "type": "string" },
+        "status": { "type": "string", "enum": ["idle", "in-progress", "completed"] },
+        "currentLocation": { "type": "string" },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "endedAt": { "type": "string", "format": "date-time" },
+        "lastUpdate": { "type": "string" }
+      },
+      "required": ["driverId", "busNumber", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of all users in the system."
+    },
+    "/attendance/{attendanceId}": {
+      "schema": "Attendance",
+      "description": "Daily attendance records for students."
+    },
+    "/trips/{tripId}": {
+      "schema": "Trip",
+      "description": "Active and past bus trips."
+    }
+  }
+}
