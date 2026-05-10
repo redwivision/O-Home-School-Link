@@ -41,3 +41,6 @@ A school transportation safety platform for monitoring student attendance and tr
 - ✅ Attendance tracking.
 - ✅ Real-time Trip status updates (Manual location updates).
 - ✅ Clean, responsive dashboard UI.
+
+#Live link:
+- [o-home-school-link.vercel.app](https://o-home-school-link.vercel.app/login)
